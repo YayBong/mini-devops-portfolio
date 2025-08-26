@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio | ใส่ชื่อ-นามสกุล</title>
+  <meta name="description" content="Portfolio ส่วนตัว | ประวัติ รูปภาพ และมุมมองด้านเทคโนโลยีสารสนเทศ" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Kanit:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1220;
+      --bg-soft: #0f172a;
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --text: #e5e7eb;
+      --muted: #a3a3a3;
+      --brand: #60a5fa; /* ฟ้า */
+      --brand-2: #a78bfa; /* ม่วง */
+      --accent: #34d399; /* เขียว */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg: #f7f7fb;
+        --bg-soft: #eef2ff;
+        --card: rgba(255,255,255,0.9);
+        --border: rgba(0,0,0,0.08);
+        --text: #111827;
+        --muted: #475569;
+        --shadow: 0 10px 30px rgba(2,6,23,.08);
+      }
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: 'Prompt', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(96,165,250,.12), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(167,139,250,.12), transparent 60%),
+                  linear-gradient(180deg, var(--bg) 0%, #0b1329 100%);
+      min-height:100dvh;
+    }
+
+    /* ===== Layout ===== */
+    .container{max-width:1100px;margin-inline:auto;padding:24px}
+    header{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(11,18,32,.75), rgba(11,18,41,0.0));
+      border-bottom: 1px solid var(--border);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+    .logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#fff;font-weight:700;box-shadow:var(--shadow)}
+    .nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+    .nav a{color:var(--text);text-decoration:none;padding:8px 12px;border-radius:999px;border:1px solid transparent}
+    .nav a:hover{border-color:var(--border);background:rgba(255,255,255,.04)}
+
+    /* ===== Hero ===== */
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;padding:56px 24px 24px}
+    .hero h1{font-family:'Kanit', sans-serif;font-size: clamp(28px, 5vw, 46px);line-height:1.1;margin:0 0 12px}
+    .hero p{margin:0 0 20px;color:var(--muted)}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-size:14px}
+    .chip{display:inline-block;padding:8px 12px;border-radius:999px;border:1px solid var(--border);margin:6px 6px 0 0}
+    .cta{display:flex;gap:12px;margin-top:14px}
+    .btn{padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(135deg, rgba(96,165,250,.18), rgba(167,139,250,.18));color:var(--text);text-decoration:none;font-weight:600}
+    .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+
+    /* profile card */
+    .profile-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);overflow:hidden}
+    .profile-card::after{content:'';position:absolute;inset:auto -40% -40% auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(#60a5fa55, transparent 60%)}
+    .avatar{width:100%;aspect-ratio:1/1;border-radius:16px;object-fit:cover;border:1px solid var(--border)}
+    .profile-info{margin-top:12px}
+    .profile-info h3{margin:6px 0 4px}
+    .profile-info .meta{color:var(--muted);font-size:14px}
+
+    /* ===== Sections ===== */
+    section{padding:42px 24px}
+    .section-title{font-family:'Kanit', sans-serif;font-size: clamp(22px, 3vw, 30px); margin:0 0 18px}
+    .grid{display:grid;gap:18px}
+    .grid.cols-2{grid-template-columns: repeat(2, minmax(0,1fr))}
+    .grid.cols-3{grid-template-columns: repeat(3, minmax(0,1fr))}
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .grid.cols-2, .grid.cols-3{grid-template-columns:1fr}
+    }
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .card h4{margin:0 0 8px;font-size:18px}
+    .muted{color:var(--muted)}
+    .list{display:grid;gap:10px;padding-left:18px}
+
+    /* subtle animations */
+    .fade-up{opacity:0;transform:translateY(10px);animation:fadeUp .7s .05s forwards}
+    .fade-up:nth-child(2){animation-delay:.12s}
+    .fade-up:nth-child(3){animation-delay:.18s}
+    .fade-up:nth-child(4){animation-delay:.24s}
+    @keyframes fadeUp{to{opacity:1;transform:none}}
+
+    /* footer */
+    footer{padding:24px;color:var(--muted);text-align:center;border-top:1px solid var(--border)}
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav container">
+      <a class="brand" href="#">
+        <div class="logo">IT</div>
+        <div>
+          <strong>Portfolio</strong>
+          <div style="font-size:12px;color:var(--muted)">เทคโนโลยีสารสนเทศ</div>
+        </div>
+      </a>
+      <ul>
+        <li><a href="#about">ประวัติ</a></li>
+        <li><a href="#insight">มุมมอง IT</a></li>
+        <li><a href="#projects">ผลงาน</a></li>
+        <li><a href="#contact">ติดต่อ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <span class="badge">สวัสดี 👋 ฉันคือ <strong>ใส่ชื่อ-นามสกุล</strong></span>
+        <h1>นักศึกษาสาย <span style="background:linear-gradient(135deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent">เทคโนโลยีสารสนเทศ</span> ที่ชอบเรียนรู้และสร้างสรรค์</h1>
+        <p>สนใจด้าน Web Development | Data | Cybersecurity (ปรับแก้ได้) พร้อมต่อยอดและทำงานเป็นทีม</p>
+        <div>
+          <span class="chip">HTML/CSS/JS</span>
+          <span class="chip">Python</span>
+          <span class="chip">Git & GitHub</span>
+          <span class="chip">UI/UX</span>
+        </div>
+        <div class="cta">
+          <a class="btn" href="#projects">ดูผลงาน</a>
+          <a class="btn" href="#contact" style="background:linear-gradient(135deg, rgba(52,211,153,.2), rgba(96,165,250,.18))">ติดต่อฉัน</a>
+        </div>
+      </div>
+      <aside class="profile-card fade-up">
+        <!-- ใส่ไฟล์รูปของตัวเองเป็น profile.jpg ในโฟลเดอร์เดียวกัน หรือเปลี่ยน src ด้านล่าง -->
+        <img class="avatar" src="mw.jpg" alt="รูปโปรไฟล์ของ ใส่ชื่อ-นามสกุล" />
+        <div class="profile-info">
+          <h3>ใส่ชื่อ-นามสกุล</h3>
+          <div class="meta">นักศึกษาคณะ/สาขา | สถาบัน</div>
+          <div class="meta">จังหวัด/ประเทศ</div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2 class="section-title">ประวัติย่อ (About Me)</h2>
+      <div class="grid cols-2">
+        <div class="card fade-up">
+          <h4>ข้อมูลส่วนตัว</h4>
+          <ul class="list">
+            <li>ชื่อ-นามสกุล: <strong>เติมข้อมูล</strong></li>
+            <li>วันเกิด: <strong>เติมข้อมูล</strong></li>
+            <li>การศึกษา: <strong>สาขา/คณะ/มหาวิทยาลัย</strong></li>
+            <li>ความถนัด: <strong>Web / Data / Security / อื่น ๆ</strong></li>
+          </ul>
+        </div>
+        <div class="card fade-up">
+          <h4>ทักษะ (Skills)</h4>
+          <ul class="list">
+            <li>Frontend: HTML, CSS, JavaScript, React (พื้นฐาน)</li>
+            <li>Backend/DB: Node.js, PHP, SQL (พื้นฐาน)</li>
+            <li>เครื่องมือ: Git/GitHub, Figma, VS Code</li>
+            <li>ภาษา: ไทย (เจ้าของภาษา), อังกฤษ (พื้นฐาน/ดี/ดีมาก)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- IT INSIGHT -->
+    <section id="insight">
+      <h2 class="section-title">มุมมอง/บทความสั้นเกี่ยวกับเทคโนโลยีสารสนเทศ</h2>
+      <div class="grid cols-2">
+        <article class="card fade-up">
+          <h4>ทำไมทักษะดิจิทัลจึงสำคัญในปัจจุบัน</h4>
+          <p class="muted">ในยุคที่ข้อมูลคือเชื้อเพลิง การเข้าใจ <em>Data</em> และความปลอดภัยไซเบอร์เป็นพื้นฐานของทุกอาชีพ ไม่ใช่แค่สายไอที คนทำงานทุกสาขาต้องสื่อสารกับเทคโนโลยีอย่างมีวิจารณญาณ และรู้เท่าทันความเสี่ยง</p>
+        </article>
+        <article class="card fade-up">
+          <h4>แนวโน้มที่น่าจับตา</h4>
+          <ul class="list">
+            <li><strong>AI + Automation</strong> ช่วยเพิ่มประสิทธิภาพ แต่ต้องใส่ใจจริยธรรมและความโปร่งใส</li>
+            <li><strong>Cloud & DevOps</strong> ทำให้การพัฒนาและปล่อยใช้งานรวดเร็วขึ้น</li>
+            <li><strong>Cybersecurity</strong> สำคัญขึ้นเรื่อย ๆ จากภัยคุกคามที่ซับซ้อน</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2 class="section-title">ผลงาน (Projects)</h2>
+      <div class="grid cols-3">
+        <div class="card fade-up">
+          <h4>โครงการ A — เว็บไซต์แนะนำตัว</h4>
+          <p class="muted">HTML/CSS/JS: พัฒนาเว็บแนะนำตัวแบบ Responsive (ไฟล์นี้ปรับใช้ได้เลย)</p>
+          <a class="btn" href="#">ดูตัวอย่าง/ซอร์สโค้ด</a>
+        </div>
+        <div class="card fade-up">
+          <h4>โครงการ B — ระบบเก็บแบบฟอร์ม</h4>
+          <p class="muted">PHP + MySQL: ฟอร์มบันทึกข้อมูลผู้ใช้ พร้อมการยืนยันความถูกต้อง</p>
+          <a class="btn" href="#">ภาพหน้าจอ/รีโป</a>
+        </div>
+        <div class="card fade-up">
+          <h4>โครงการ C — วิเคราะห์ข้อมูลเบื้องต้น</h4>
+          <p class="muted">Python: ทำความสะอาดและแสดงผลด้วยกราฟ เบื้องต้น</p>
+          <a class="btn" href="#">สรุปผล/โน้ตบุ๊ก</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2 class="section-title">ติดต่อ</h2>
+      <div class="grid cols-2">
+        <div class="card fade-up">
+          <h4>ข้อมูลการติดต่อ</h4>
+          <ul class="list">
+            <li>อีเมล: <strong>your.name@email.com</strong></li>
+            <li>เบอร์: <strong>0x-xxx-xxxx</strong></li>
+            <li>GitHub: <a href="#">github.com/yourname</a></li>
+            <li>LinkedIn: <a href="#">linkedin.com/in/yourname</a></li>
+          </ul>
+        </div>
+        <form class="card fade-up" onsubmit="event.preventDefault(); alert('ขอบคุณที่ติดต่อครับ/ค่ะ!');">
+          <h4>ส่งข้อความหาเรา</h4>
+          <label class="muted">ชื่อ
+            <input required placeholder="พิมพ์ชื่อของคุณ" style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--text);margin-top:6px">
+          </label>
+          <label class="muted" style="display:block;margin-top:12px">อีเมล
+            <input type="email" required placeholder="your@email.com" style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--text);margin-top:6px">
+          </label>
+          <label class="muted" style="display:block;margin-top:12px">ข้อความ
+            <textarea required rows="4" placeholder="สวัสดี..." style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--text);margin-top:6px"></textarea>
+          </label>
+          <button class="btn" type="submit" style="margin-top:12px">ส่งข้อความ</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> ใส่ชื่อ-นามสกุล — Portfolio
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
